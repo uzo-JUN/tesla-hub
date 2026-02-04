@@ -1,0 +1,203 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Tesla Invest Dark Theme */
+    --background: 220 25% 6%;
+    --foreground: 210 40% 98%;
+
+    --card: 220 25% 10%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 220 25% 8%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 185 85% 50%;
+    --primary-foreground: 220 25% 6%;
+
+    --secondary: 220 25% 15%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 220 20% 18%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 260 80% 60%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 20% 18%;
+    --input: 220 20% 18%;
+    --ring: 185 85% 50%;
+
+    --radius: 0.75rem;
+
+    /* Custom Tesla Invest tokens */
+    --glow-primary: 185 85% 50%;
+    --glow-accent: 260 80% 60%;
+    --glass-bg: 220 25% 10% / 0.6;
+    --glass-border: 220 20% 30% / 0.3;
+    
+    --gradient-primary: linear-gradient(135deg, hsl(185 85% 50%), hsl(200 90% 45%));
+    --gradient-accent: linear-gradient(135deg, hsl(260 80% 60%), hsl(280 85% 50%));
+    --gradient-dark: linear-gradient(180deg, hsl(220 25% 8%), hsl(220 25% 4%));
+    --gradient-glass: linear-gradient(135deg, hsl(220 25% 15% / 0.4), hsl(220 25% 10% / 0.2));
+    
+    --shadow-glow: 0 0 60px hsl(185 85% 50% / 0.15);
+    --shadow-card: 0 25px 50px -12px hsl(0 0% 0% / 0.5);
+    
+    --sidebar-background: 220 25% 8%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 185 85% 50%;
+    --sidebar-primary-foreground: 220 25% 6%;
+    --sidebar-accent: 220 25% 15%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 220 20% 18%;
+    --sidebar-ring: 185 85% 50%;
+  }
+
+  .dark {
+    --background: 220 25% 6%;
+    --foreground: 210 40% 98%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-family: 'Space Grotesk', sans-serif;
+    background: linear-gradient(180deg, hsl(220 25% 6%), hsl(220 25% 4%));
+  }
+}
+
+@layer components {
+  .glass-card {
+    @apply relative backdrop-blur-xl rounded-2xl border;
+    background: linear-gradient(135deg, hsl(220 25% 15% / 0.4), hsl(220 25% 10% / 0.2));
+    border-color: hsl(220 20% 30% / 0.3);
+  }
+
+  .glass-card-hover {
+    @apply glass-card transition-all duration-500;
+  }
+
+  .glass-card-hover:hover {
+    border-color: hsl(185 85% 50% / 0.4);
+    box-shadow: 0 0 40px hsl(185 85% 50% / 0.1);
+  }
+
+  .glow-text {
+    text-shadow: 0 0 40px hsl(185 85% 50% / 0.5);
+  }
+
+  .glow-border {
+    box-shadow: 0 0 30px hsl(185 85% 50% / 0.2), inset 0 0 30px hsl(185 85% 50% / 0.05);
+  }
+
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(185 85% 50%), hsl(200 90% 60%));
+  }
+
+  .gradient-text-accent {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(260 80% 60%), hsl(280 85% 55%));
+  }
+
+  .btn-primary {
+    @apply relative px-6 py-3 rounded-full font-semibold transition-all duration-300;
+    background: linear-gradient(135deg, hsl(185 85% 50%), hsl(200 90% 45%));
+    color: hsl(220 25% 6%);
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 0 30px hsl(185 85% 50% / 0.4);
+    transform: translateY(-2px);
+  }
+
+  .btn-ghost {
+    @apply px-6 py-3 rounded-full font-semibold transition-all duration-300 border;
+    border-color: hsl(220 20% 30%);
+    color: hsl(210 40% 98%);
+  }
+
+  .btn-ghost:hover {
+    border-color: hsl(185 85% 50%);
+    color: hsl(185 85% 50%);
+  }
+
+  .nav-pill {
+    @apply px-4 py-2 rounded-full text-sm font-medium transition-all duration-300;
+    color: hsl(215 20% 65%);
+  }
+
+  .nav-pill:hover {
+    color: hsl(210 40% 98%);
+  }
+
+  .nav-pill-active {
+    @apply nav-pill;
+    background: linear-gradient(135deg, hsl(185 85% 50%), hsl(200 90% 45%));
+    color: hsl(220 25% 6%);
+  }
+
+  .stat-card {
+    @apply glass-card p-6;
+  }
+
+  .feature-card {
+    @apply glass-card-hover p-8;
+  }
+
+  .partner-badge {
+    @apply px-6 py-3 rounded-full border font-medium text-sm;
+    border-color: hsl(220 20% 25%);
+    color: hsl(210 40% 85%);
+    background: hsl(220 25% 12% / 0.5);
+  }
+
+  .floating-element {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  .pulse-glow {
+    animation: pulseGlow 3s ease-in-out infinite;
+  }
+
+  @keyframes pulseGlow {
+    0%, 100% {
+      box-shadow: 0 0 20px hsl(185 85% 50% / 0.2);
+    }
+    50% {
+      box-shadow: 0 0 40px hsl(185 85% 50% / 0.4);
+    }
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
