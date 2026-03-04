@@ -44,7 +44,7 @@ const Portfolio = () => {
           className="text-center mb-12"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            Welcome, <span className="gradient-text">Patricia</span>
+            Welcome, <span className="gradient-text"></span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Your Tesla Mining investment is actively generating returns through our sustainable mining operations.

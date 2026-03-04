@@ -1,17 +1,29 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Menu, X, Zap } from "lucide-react";
+import { Link, useLocation } from "react-router-dom"; // Add these imports
 
 const navItems = [
-  { name: "Home", href: "#", active: true },
-  { name: "About", href: "#about" },
-  { name: "Benefits", href: "#benefits" },
-  { name: "Mined", href: "#invest" },
-  { name: "Contact", href: "#contact" },
+  { name: "Home", path: "/", active: true },
+  { name: "About", path: "/about" },
+  { name: "Benefits", path: "/benefits" },
+  { name: "Mine", path: "/mine" },
 ];
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation(); // Get current location for active state
+
+  // Function to handle navigation and close mobile menu
+  const handleNavClick = () => {
+    setMobileMenuOpen(false);
+    window.scrollTo(0, 0); // Scroll to top when navigating
+  };
+
+  // Check if a nav item is active
+  const isActive = (path: string) => {
+    return location.pathname === path;
+  };
 
   return (
     <motion.nav
@@ -22,33 +34,37 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto">
         <div className="glass-card px-6 py-3 flex items-center justify-between">
-          {/* Logo */}
-          <a href="#" className="flex items-center gap-2">
+          {/* Logo - Links to Home */}
+          <Link to="/" className="flex items-center gap-2" onClick={() => window.scrollTo(0, 0)}>
             <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-primary/70 flex items-center justify-center">
               <Zap className="w-5 h-5 text-primary-foreground" />
             </div>
             <span className="text-xl font-bold text-foreground">
               Tesla<span className="gradient-text">Mining</span>
             </span>
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center gap-1 glass-card px-2 py-1">
             {navItems.map((item) => (
-              <a
+              <Link
                 key={item.name}
-                href={item.href}
-                className={item.active ? "nav-pill-active" : "nav-pill"}
+                to={item.path}
+                className={isActive(item.path) ? "nav-pill-active" : "nav-pill"}
               >
                 {item.name}
-              </a>
+              </Link>
             ))}
           </div>
 
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center gap-3">
             <button className="btn-ghost text-sm">POWERED BY TESLA</button>
-            <button className="btn-primary text-sm">Welcome aboard</button>
+            <Link to="/get-started">
+              <button className="btn-primary text-sm" onClick={() => window.scrollTo(0, 0)}>
+                Welcome aboard
+              </button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -69,20 +85,26 @@ const Navbar = () => {
           >
             <div className="flex flex-col gap-2">
               {navItems.map((item) => (
-                <a
+                <Link
                   key={item.name}
-                  href={item.href}
+                  to={item.path}
                   className={`px-4 py-3 rounded-xl ${
-                    item.active ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground"
+                    isActive(item.path) 
+                      ? "bg-primary text-primary-foreground" 
+                      : "text-muted-foreground hover:text-foreground hover:bg-white/5"
                   }`}
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {item.name}
-                </a>
+                </Link>
               ))}
               <div className="flex gap-2 mt-4">
-                <button className="btn-ghost flex-1 text-sm">Sign In</button>
-                <button className="btn-primary flex-1 text-sm">Get Started</button>
+                <Link to="/signin" className="flex-1" onClick={() => setMobileMenuOpen(false)}>
+                  <button className="btn-ghost w-full text-sm">Sign In</button>
+                </Link>
+                <Link to="/get-started" className="flex-1" onClick={() => setMobileMenuOpen(false)}>
+                  <button className="btn-primary w-full text-sm">Get Started</button>
+                </Link>
               </div>
             </div>
           </motion.div>
